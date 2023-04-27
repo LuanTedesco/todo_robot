@@ -1,0 +1,14 @@
+class CreateTasks < ActiveRecord::Migration[7.0]
+  def change
+    create_table :tasks do |t|
+      t.string :tittle
+      t.string :description
+      t.date :start_date
+      t.date :end_date
+      t.string :result
+      t.boolean :finished
+
+      t.timestamps
+    end
+  end
+end
