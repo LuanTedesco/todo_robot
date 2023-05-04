@@ -8,4 +8,5 @@ Rails.application.routes.draw do
   # root "articles#index"
 
   get 'today', to: 'today#index', as: :today
+  get 'ended', to: 'ended#index', as: :ended
 end
