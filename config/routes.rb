@@ -6,4 +6,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  get 'today', to: 'today#index', as: :today
 end
