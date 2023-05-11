@@ -1,8 +1,8 @@
 <p style="color: green"><%= notice %></p>
-<%= link_to "Novo robô", new_task_path, class: 'btn btn-primary' %>
+<%= link_to "Novo robô", new_task_path, "data-controller":"task-modal", class: 'btn btn-primary' %>
 <table class="table table-striped">
   <thead>
-    <th>Check</th>
+    <th></th>
     <th>Titulo</th>
     <th>Data de início</th>
     <th>Data de fim</th>
@@ -12,11 +12,7 @@
       <tr>
         <td>
           <%= form_with model: task do |form| %>
-            <%= form.check_box :finished,
-                                        data: {
-                                          id: task.id,
-                                          action: "tasks#toggle"
-                                        } %>
+            <%= form.check_box :finished, data: { id: task.id, action: "tasks#toggle" } %>
           <% end %>
         </td>
         <td><%= task.tittle %></td>
@@ -24,7 +20,7 @@
         <td><%= task.end_date %></td>
         <td>
           <%= link_to "Detalhes", task_path(task), class: 'btn btn-dark' %>
-          <%= link_to "Editar", edit_task_path(task), class: 'btn btn-warning' %>
+          <%= link_to "Editar", edit_task_path(task), "data-controller":"task-modal", class: 'btn btn-warning' %>
           <%= link_to "Excluir", task_path(task), method: :delete, class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Deseja realmente excluir?' } %>
         </td>
       </tr>
