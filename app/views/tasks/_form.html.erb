@@ -1,47 +1,15 @@
-<%= form_with(model: task) do |form| %>
-  <% if task.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(task.errors.count, "error") %> prohibited this task from being saved:</h2>
-
-      <ul>
-        <% task.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
-
-  <div>
-    <%= form.label :tittle, style: "display: block" %>
-    <%= form.text_field :tittle %>
+<%= simple_form_for @task do |f| %>
+  <%= f.error_notification %>
+  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
+  <div class="form-inputs">
+    <%= f.input :tittle %>
+    <%= f.input :description %>
+    <%= f.input :start_date, as: :date %>
+    <%= f.input :end_date, as: :date %>
+    <%= f.input :result %>
+    <%= f.input :finished, as: :boolean %>
   </div>
-
-  <div>
-    <%= form.label :description, style: "display: block" %>
-    <%= form.text_field :description %>
-  </div>
-
-  <div>
-    <%= form.label :start_date, style: "display: block" %>
-    <%= form.date_field :start_date %>
-  </div>
-
-  <div>
-    <%= form.label :end_date, style: "display: block" %>
-    <%= form.date_field :end_date %>
-  </div>
-
-  <div>
-    <%= form.label :result, style: "display: block" %>
-    <%= form.text_field :result %>
-  </div>
-
-  <div>
-    <%= form.label :finished, style: "display: block" %>
-    <%= form.check_box :finished %>
-  </div>
-
-  <div>
-    <%= form.submit %>
+  <div class="form-actions">
+    <%= f.button :submit, 'Salvar', class: 'btn btn-info' %>
   </div>
 <% end %>
