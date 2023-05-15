@@ -1,29 +1,36 @@
-<p style="color: green"><%= notice %></p>
-<%= link_to "Novo robô", new_task_path, "data-controller":"task-modal", class: 'btn btn-primary' %>
-<table class="table table-striped">
+<div class="input-group mb-3">
+  <input type="text" class="form-control" placeholder="Descreva seu robô" aria-label="" aria-describedby="basic-addon1">
+  <div class="input-group-prepend">
+    <%= link_to "Adicionar robô", new_task_path, "data-controller":"task-modal", class: 'btn btn-primary ' %>
+  </div>
+</div>
+<table class="table table-hover">
   <thead>
     <th></th>
     <th>Titulo</th>
     <th>Data de início</th>
     <th>Data de fim</th>
+    <th></th>
   </thead>
   <tbody>
     <% @tasks.each do |task| %>
       <tr>
         <td>
-          <%= form_with model: task, class:"form_task" do |f| %>
-            <%= f.check_box :finished, class: 'checkbox-toggle' %>
-          <% end %>
+          <div class="form-check">
+            <%= form_with model: task, class:"form_task " do |f| %>
+              <%= f.check_box :finished, class: 'checkbox-toggle form-check-input ml-2' %>
+            <% end %>
+          </div>
         </td>
-        <td><%= task.tittle %></td>
+        <td class="text-truncate" style="max-width: 300px;"><%= task.tittle %></td>
         <td><%= task.start_date %></td>
         <td><%= task.end_date %></td>
-        <td>
-          <%= link_to "Detalhes", task_path(task), "data-controller":"task-modal", class: 'btn btn-dark' %>
-          <%= link_to "Editar", edit_task_path(task), "data-controller":"task-modal", class: 'btn btn-warning' %>
+        <td class="text-right">
+          <%= link_to "Editar", edit_task_path(task), "data-controller":"task-modal", class: 'btn btn-primary' %>
           <%= link_to "Excluir", task_path(task), method: :delete, class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Deseja realmente excluir?' } %>
         </td>
       </tr>
     <% end %>
+    <script src="./task/toggleTask.js"></script>
   </tbody>
 </table>
