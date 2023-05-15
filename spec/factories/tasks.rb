@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :task do
-    tittle { "MyString" }
+    title { "MyString" }
     description { "MyString" }
     start_date { "2023-04-08" }
     end_date { "2023-04-08" }

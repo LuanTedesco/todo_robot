@@ -1,7 +1,7 @@
 class CreateTasks < ActiveRecord::Migration[7.0]
   def change
     create_table :tasks do |t|
-      t.string :tittle
+      t.string :title
       t.string :description
       t.date :start_date
       t.date :end_date

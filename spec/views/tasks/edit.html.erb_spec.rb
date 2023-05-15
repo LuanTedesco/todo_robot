@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe "tasks/edit", type: :view do
   let(:task) {
     Task.create!(
-      tittle: "MyString",
+      title: "MyString",
       description: "MyString",
       result: "MyString",
       finished: false
@@ -19,7 +19,7 @@ RSpec.describe "tasks/edit", type: :view do
 
     assert_select "form[action=?][method=?]", task_path(task), "post" do
 
-      assert_select "input[name=?]", "task[tittle]"
+      assert_select "input[name=?]", "task[title]"
 
       assert_select "input[name=?]", "task[description]"
 
