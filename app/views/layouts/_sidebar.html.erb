@@ -9,15 +9,15 @@
   <li class="nav-item active">
     <%= link_to tasks_path(filter: "today"), class: "nav-link" do %>
       <i class="fas fa-check"></i>
-      <span>Today</span>
+      <span>Hoje</span>
     <% end %>
     <%= link_to tasks_path, class: "nav-link" do %>
       <i class="fas fa-bars"></i>
-      <span>Tasks</span>
+      <span>Tarefas</span>
     <% end %>
     <%= link_to tasks_path(filter: "ended"), class: "nav-link" do %>
       <i class="fas fa-hourglass-end"></i>
-      <span>Ended</span>
+      <span>Finalizadas</span>
     <% end %>
   </li>
   <hr class="sidebar-divider">
