@@ -12,9 +12,6 @@ class TasksController < ApplicationController
     end
   end
 
-  def show
-  end
-
   def new
     @task = Task.new
   end
@@ -33,7 +30,7 @@ class TasksController < ApplicationController
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: "Tarefa editada com sucesso!"
+      redirect_to tasks_path, notice: "Tarefa alterada com sucesso!"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -41,8 +38,7 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-      redirect_to tasks_url, notice: "Tarefa apagada com sucesso!"
-      head :no_content
+      redirect_to tasks_path, notice: "Tarefa excluída com sucesso!"
   end
 
   private
