@@ -18,7 +18,7 @@ class PrioritiesController < ApplicationController
   def create
     @priority = Priority.new(priority_params)
     if @priority.save
-      redirect_to priority_path, notice: "Prioridade criada com sucesso!"
+      redirect_to priorities_path, notice: "Prioridade criada com sucesso!"
     else
       render :new, status: :unprocessable_entity
     end
@@ -26,7 +26,7 @@ class PrioritiesController < ApplicationController
 
   def update
     if @priority.update(priority_params)
-      redirect_to priority_path, notice: "Prioridade editada com sucesso!"
+      redirect_to priorities_path, notice: "Prioridade editada com sucesso!"
     else
       render :edit, status: :unprocessable_entity
     end
@@ -34,7 +34,7 @@ class PrioritiesController < ApplicationController
 
   def destroy
     @priority.destroy
-      redirect_to priority_path, notice: "Prioridade excluida com sucesso!"
+      redirect_to priorities_path, notice: "Prioridade excluida com sucesso!"
   end
 
   private
