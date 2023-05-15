@@ -23,8 +23,8 @@
           </div>
         </td>
         <td class="text-truncate" style="max-width: 300px;"><%= task.tittle %></td>
-        <td><%= task.start_date %></td>
-        <td><%= task.end_date %></td>
+        <td><%= task.start_date.strftime("%d/%m/%Y") %></td>
+        <td><%= task.end_date.strftime("%d/%m/%Y") %></td>
         <td class="text-right">
           <%= link_to "Editar", edit_task_path(task), "data-controller":"task-modal", class: 'btn btn-primary' %>
           <%= link_to "Excluir", task_path(task), method: :delete, class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Deseja realmente excluir?' } %>
