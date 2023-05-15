@@ -1,7 +1,10 @@
+<div class="d-sm-flex align-items-center justify-content-between mb-3">
+  <%= link_to "Novo robô", new_task_path, "data-controller":"task-modal", class: 'btn btn-primary' %>
+</div>
 <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Descreva seu robô" aria-label="" aria-describedby="basic-addon1">
+  <input type="text" class="form-control" placeholder="Descreva seu robô" aria-label="Descreva seu robô" aria-describedby="basic-addon2">
   <div class="input-group-prepend">
-    <%= link_to "Adicionar robô", new_task_path, "data-controller":"task-modal", class: 'btn btn-primary ' %>
+    <%= link_to "Adicionar robô", new_task_path, "data-controller":"task-modal", class: 'btn btn-primary' %>
   </div>
 </div>
 <table class="table table-hover">
@@ -10,6 +13,7 @@
     <th>Titulo</th>
     <th>Data de início</th>
     <th>Data de fim</th>
+    <th>Prioridade</th>
     <th></th>
   </thead>
   <tbody>
@@ -25,6 +29,8 @@
         <td class="text-truncate" style="max-width: 300px;"><%= task.title %></td>
         <td><%= task.start_date.strftime("%d/%m/%Y") %></td>
         <td><%= task.end_date.strftime("%d/%m/%Y") %></td>
+        <td><%= task.priority.name %></td>
+        <td><%= task.priority_id %></td>
         <td class="text-right">
           <%= link_to "Editar", edit_task_path(task), "data-controller":"task-modal", class: 'btn btn-primary' %>
           <%= link_to "Excluir", task_path(task), method: :delete, class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Deseja realmente excluir?' } %>
