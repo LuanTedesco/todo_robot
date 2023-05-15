@@ -3,13 +3,13 @@
   <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
   <div class="form-inputs">
     <%= f.input :tittle %>
-    <%= f.input :description %>
+    <%= f.input :description, as: :text, input_html: { class: 'form-control' } %>
     <%= f.input :start_date, as: :date %>
     <%= f.input :end_date, as: :date %>
-    <%= f.input :result %>
+    <%= f.input :result, as: :text, input_html: { class: 'form-control' } %>
     <%= f.input :finished, as: :boolean %>
   </div>
   <div class="form-actions">
-    <%= f.button :submit, 'Salvar', class: 'btn btn-info' %>
+    <%= f.button :submit, 'Salvar', class: 'btn btn-primary' %>
   </div>
 <% end %>
