@@ -1,5 +1,4 @@
 class TasksController < ApplicationController
-
   before_action :set_task, only: %i[ show edit update destroy ]
 
   def index
@@ -12,6 +11,9 @@ class TasksController < ApplicationController
     end
   end
 
+  def show
+  end
+
   def new
     @task = Task.new
   end
@@ -21,11 +23,11 @@ class TasksController < ApplicationController
 
   def create
     @task = Task.new(task_params)
-      if @task.save
-        redirect_to tasks_path, notice: "Tarefa criada com sucesso!"
-      else
-        render :new, status: :unprocessable_entity
-      end
+    if @task.save
+      redirect_to tasks_path, notice: "Tarefa criada com sucesso!"
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def update
