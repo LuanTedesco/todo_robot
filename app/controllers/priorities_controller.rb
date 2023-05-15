@@ -43,6 +43,6 @@ class PrioritiesController < ApplicationController
     end
 
     def priority_params
-      params.require(:priority).permit(:name, :position)
+      params.require(:priority).permit(:name)
     end
 end

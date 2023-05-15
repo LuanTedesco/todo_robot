@@ -4,14 +4,12 @@
 <table class="table table-hover">
   <thead>
     <th>Nome</th>
-    <th>Posição</th>
     <th></th>
   </thead>
   <tbody>
     <% @priorities.each do |priority| %>
       <tr>
-        <td class="text-truncate" style="max-width: 300px;"><%= priority.name %></td>
-        <td><%= priority.position %></td>
+        <td><%= priority.name %></td>
         <td class="text-right">
           <%= link_to "Editar", edit_priority_path(priority), "data-controller":"priority-modal", class: 'btn btn-primary' %>
           <%= link_to "Excluir", priority_path(priority), method: :delete, class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Deseja realmente excluir?' } %>

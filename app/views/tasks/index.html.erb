@@ -30,7 +30,6 @@
         <td><%= task.start_date.strftime("%d/%m/%Y") %></td>
         <td><%= task.end_date.strftime("%d/%m/%Y") %></td>
         <td><%= task.priority.name %></td>
-        <td><%= task.priority_id %></td>
         <td class="text-right">
           <%= link_to "Editar", edit_task_path(task), "data-controller":"task-modal", class: 'btn btn-primary' %>
           <%= link_to "Excluir", task_path(task), method: :delete, class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Deseja realmente excluir?' } %>

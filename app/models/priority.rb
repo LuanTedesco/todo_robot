@@ -1,4 +1,4 @@
 class Priority < ApplicationRecord
-  validates :name, :position, presence: true
+  validates :name, presence: true
   has_many :tasks
 end
