@@ -11,7 +11,7 @@
       <%= text_field_tag :filter_end_date, params[:filter_end_date], class: 'form-control', placeholder: 'Data de termino' %>
     </div>
     <div class="ml-2 mr-2">
-      <%= text_field_tag :filter_priority, params[:filter_priority], class: 'form-control', placeholder: 'Prioridade' %>
+      <%= select_tag :filter_priority, options_for_select(Priority.pluck(:name,:id)), class: 'form-control', prompt: 'Selecione uma prioridade' %>
     </div>
     <%= submit_tag 'Filtrar', class: 'btn btn-primary' %>
   <% end %>
