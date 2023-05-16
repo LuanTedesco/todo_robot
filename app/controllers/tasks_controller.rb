@@ -9,6 +9,10 @@ class TasksController < ApplicationController
     else
       @tasks = Task.all
     end
+    @tasks = @tasks.where("LOWER(title) LIKE ?", "%#{params[:filter_title].downcase}%") if params[:filter_title].present?
+    @tasks = @tasks.where("start_date >= ?", params[:filter_start_date]) if params[:filter_start_date].present?
+    @tasks = @tasks.where("end_date <= ?", params[:filter_end_date]) if params[:filter_end_date].present?
+    @tasks = @tasks.joins(:priority).where("LOWER(priorities.name) LIKE ?", "%#{params[:filter_priority].downcase}%") if params[:filter_priority].present?
   end
 
   def show
