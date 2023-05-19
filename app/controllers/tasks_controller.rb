@@ -12,7 +12,6 @@ class TasksController < ApplicationController
     @tasks = @tasks.where("LOWER(title) LIKE ?", "%#{params[:filter_title].downcase}%") if params[:filter_title].present?
     @tasks = @tasks.where("start_date >= ?", params[:filter_start_date]) if params[:filter_start_date].present?
     @tasks = @tasks.where("end_date <= ?", params[:filter_end_date]) if params[:filter_end_date].present?
-    @tasks = @tasks.where(priority: params[:filter_priority]) if params[:filter_priority].present?
   end
 
   def show
@@ -53,6 +52,6 @@ class TasksController < ApplicationController
     end
 
     def task_params
-      params.require(:task).permit(:title, :description, :start_date, :end_date, :result, :priority_id, :finished)
+      params.require(:task).permit(:title, :description, :start_date, :end_date, :result, :priority, :status, :finished)
     end
 end
