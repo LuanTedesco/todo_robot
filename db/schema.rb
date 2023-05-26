@@ -10,9 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_17_191347) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_26_180215) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  # Custom types defined in this database.
+  # Note that some types may not work with other database engines. Be careful if changing database.
+  create_enum "priority", ["Baixa prioridade", "Moderado", "Importante", "Urgente"]
+  create_enum "status", ["Aguardando", "Desenvolvendo", "Testando", "Concluído", "Rodando"]
 
   create_table "tasks", force: :cascade do |t|
     t.string "title"
@@ -23,10 +28,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_17_191347) do
     t.boolean "finished"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "priority_id", default: 1, null: false
-    t.string "status"
-    t.string "priority"
-    t.index ["priority_id"], name: "index_tasks_on_priority_id"
+    t.enum "priority", default: "Baixa prioridade", null: false, enum_type: "priority"
+    t.enum "status", default: "Aguardando", null: false, enum_type: "status"
   end
 
 end

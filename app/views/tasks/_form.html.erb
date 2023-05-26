@@ -7,8 +7,8 @@
     <%= f.input :start_date, as: :date %>
     <%= f.input :end_date, as: :date %>
     <%= f.input :result, as: :text, input_html: { class: 'form-control' } %>
-    <%= f.input :priority, as: :select, collection: Task.priorities.keys.map { |s| [s.humanize, s] } %>
-    <%= f.input :status, as: :select, collection: Task.statuses.keys.map { |s| [s.humanize, s] } %>
+    <%= f.input :priority, as: :select, collection: Task.priorities.keys.map { |key| [key.humanize, key] }, selected: @task.priority %>
+    <%= f.input :status, as: :select, collection: Task.statuses.keys.map { |key| [key.humanize, key] }, selected: @task.status %>
     <%= f.input :finished, as: :boolean %>
   </div>
   <div class="form-actions">
