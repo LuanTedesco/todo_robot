@@ -1,17 +1,46 @@
-<%= simple_form_for(@task) do |f| %>
-  <%= f.error_notification %>
-  <%= f.error_notification message: f.object.errors[:base].to_sentence if f.object.errors[:base].present? %>
-  <div class="form-inputs">
-    <%= f.input :title %>
-    <%= f.input :description, as: :text, input_html: { class: 'form-control' } %>
-    <%= f.input :start_date, as: :date %>
-    <%= f.input :end_date, as: :date %>
-    <%= f.input :result, as: :text, input_html: { class: 'form-control' } %>
-    <%= f.input :priority, as: :select, collection: Task.priorities.keys.map { |key| [key.humanize, key] }, selected: @task.priority %>
-    <%= f.input :status, as: :select, collection: Task.statuses.keys.map { |key| [key.humanize, key] }, selected: @task.status %>
-    <%= f.input :finished, as: :boolean %>
+<%= form_for(@task) do |f| %>
+  <% if f.object.errors.any? %>
+    <div class="alert alert-danger">
+      <strong>Error:</strong> <%= pluralize(f.object.errors.count, "error") %> prohibited this task from being saved.
+    </div>
+  <% end %>
+  <div class="form-group">
+    <%= f.label :title, class: "control-label" %>
+    <%= f.text_field :title, class: "form-control", required: true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :description, class: "control-label" %>
+    <%= f.text_area :description, class: "form-control" %>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= f.label :start_date, class: "control-label" %>
+      <%= f.date_field :start_date, class: "form-control" %>
+    </div>
+    <div class="form-group col-md-6">
+      <%= f.label :end_date, class: "control-label" %>
+      <%= f.date_field :end_date, class: "form-control" %>
+    </div>
+  </div>
+  <div class="form-group">
+    <%= f.label :result, class: "control-label" %>
+    <%= f.text_area :result, class: "form-control" %>
+  </div>
+  <div class="form-group">
+    <%= f.label :priority, class: "control-label" %>
+    <%= f.select :priority, options_for_select(Task.priorities.map { |key, value| [value.humanize, key] }, @task.priority), {}, class: "form-control", required: true %>
+  </div>
+  <div class="form-group">
+    <%= f.label :status, class: "control-label" %>
+    <%= f.select :status, options_for_select(Task.statuses.map { |key, value| [value.humanize, key] }, @task.status), {}, class: "form-control", required: true %>
+  </div>
+  <div class="form-group">
+    <div class="form-check">
+      <%= f.check_box :finished, class: "form-check-input" %>
+      <%= f.label :finished, class: "form-check-label" %>
+    </div>
   </div>
   <div class="form-actions">
-    <%= f.button :submit, 'Salvar', class: 'btn btn-primary' %>
+    <%= f.submit 'Salvar', class: 'btn btn-primary' %>
   </div>
 <% end %>
