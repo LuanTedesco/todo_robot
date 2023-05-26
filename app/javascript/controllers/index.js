@@ -12,6 +12,3 @@ application.register('modal', ModalController)
 
 import TaskModalController from './task_modal_controller'
 application.register('task-modal', TaskModalController)
-
-import PrioritiesModalController from './priority_modal_controller'
-application.register('priority-modal', PrioritiesModalController)
