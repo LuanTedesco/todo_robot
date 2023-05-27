@@ -1,5 +1,5 @@
 <div class="d-sm-flex align-items-center justify-content-between mb-3">
-  <%= link_to "Novo robô", new_task_path, "data-controller":"task-modal", class: 'btn btn-primary' %>
+  <%= link_to "Novo", new_task_path, "data-controller":"task-modal", class: 'btn btn-primary' %>
   <%= form_tag tasks_path, class: 'd-sm-flex', method: :get do %>
     <div class="ml-2">
       <%= text_field_tag :filter_title, params[:filter_title], class: 'form-control', placeholder: 'Titulo' %>
@@ -7,16 +7,25 @@
     <div class="ml-2">
       <%= text_field_tag :filter_start_date, params[:filter_start_date], class: 'form-control', placeholder: 'Data de inicio' %>
     </div>
-    <div class="ml-2 mr-2">
+    <div class="ml-2">
       <%= text_field_tag :filter_end_date, params[:filter_end_date], class: 'form-control', placeholder: 'Data de termino' %>
+    </div>
+    <div class="ml-2">
+      <%= select_tag :filter_priority, options_for_select(Task.priorities.map { |key, value| [value.humanize, key] }, params[:filter_priority]), include_blank: 'Prioridade', class: 'form-control' %>
+    </div>
+    <div class="ml-2">
+      <%= select_tag :filter_status, options_for_select(Task.statuses.map { |key, value| [value.humanize, key] }, params[:filter_status]), include_blank: 'Status', class: 'form-control' %>
+    </div>
+    <div class="ml-2 mr-2">
+      <%= select_tag :filter_typetask, options_for_select(Task.typetasks.map { |key, value| [value.humanize, key] }, params[:filter_typetask]), include_blank: 'Tipo', class: 'form-control' %>
     </div>
     <%= submit_tag 'Filtrar', class: 'btn btn-primary' %>
   <% end %>
 </div>
 <div class="input-group mb-3">
-  <input type="text" class="form-control" placeholder="Descreva seu robô" aria-label="Descreva seu robô" aria-describedby="basic-addon2">
+  <input type="text" class="form-control" placeholder="Descreva" aria-label="Descreva" aria-describedby="basic-addon2">
   <div class="input-group-prepend">
-    <%= link_to "Adicionar robô", new_task_path, "data-controller":"task-modal", class: 'btn btn-primary' %>
+    <%= link_to "Adicionar", new_task_path, "data-controller":"task-modal", class: 'btn btn-primary' %>
   </div>
 </div>
 <table class="table table-hover">
@@ -26,6 +35,8 @@
     <th>Data de início</th>
     <th>Data de fim</th>
     <th>Prioridade</th>
+    <th>Status</th>
+    <th>Tipo</th>
     <th></th>
   </thead>
   <tbody>
@@ -42,6 +53,8 @@
         <td><%= task.start_date.strftime("%d/%m/%Y") %></td>
         <td><%= task.end_date.strftime("%d/%m/%Y") %></td>
         <td><%= task.priority %></td>
+        <td><%= task.status %></td>
+        <td><%= task.typetask %></td>
         <td class="text-right">
           <%= link_to "Editar", edit_task_path(task), "data-controller":"task-modal", class: 'btn btn-primary' %>
           <%= link_to "Excluir", task_path(task), method: :delete, class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Deseja realmente excluir?' } %>

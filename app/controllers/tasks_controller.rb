@@ -15,6 +15,10 @@ class TasksController < ApplicationController
     end
     @tasks = @tasks.where('start_date >= ?', params[:filter_start_date]) if params[:filter_start_date].present?
     @tasks = @tasks.where('end_date <= ?', params[:filter_end_date]) if params[:filter_end_date].present?
+    @tasks = @tasks.where(priority: params[:filter_priority]) if params[:filter_priority].present?
+    @tasks = @tasks.where(status: params[:filter_status]) if params[:filter_status].present?
+    @tasks = @tasks.where(typetask: params[:filter_typetask]) if params[:filter_typetask].present?
+    @tasks = @tasks.order(priority: :desc, finished: :desc)
   end
 
   def show; end
@@ -54,7 +58,7 @@ class TasksController < ApplicationController
   end
 
   def task_params
-    params.require(:task).permit(:title, :description, :start_date, :end_date, :result, :priority, :status,
+    params.require(:task).permit(:title, :description, :start_date, :end_date, :result, :priority, :status, :typetask,
                                  :finished)
   end
 end

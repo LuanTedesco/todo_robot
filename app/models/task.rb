@@ -18,4 +18,9 @@ class Task < ApplicationRecord
     'Concluído' => 'Concluído',
     'Rodando' => 'Rodando'
   }
+
+  enum typetask: {
+    'Robô' => 'Robô',
+    'Tarefa' => 'Tarefa'
+  }
 end
