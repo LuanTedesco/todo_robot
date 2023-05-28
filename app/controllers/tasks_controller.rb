@@ -38,6 +38,18 @@ class TasksController < ApplicationController
     end
   end
 
+  def fast_task
+    @task = Task.new(task_params)
+    @task.start_date = Date.today
+    @task.end_date = Date.today
+
+    if @task.save
+      redirect_to tasks_path, notice: 'Tarefa criada com sucesso!'
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
   def update
     if @task.update(task_params)
       redirect_to tasks_path, notice: 'Tarefa alterada com sucesso!'
