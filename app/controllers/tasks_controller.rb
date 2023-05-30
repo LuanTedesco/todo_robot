@@ -46,57 +46,57 @@ class TasksController < ApplicationController
     @tasks = @tasks.where(typetask: params[:filter_typetask]) if params[:filter_typetask].present?
     @tasks = @tasks.order(priority: :desc, finished: :desc)
   end
-end
 
-def show; end
+  def show; end
 
-def new
-  @task = Task.new
-end
-
-def edit; end
-
-def create
-  @task = Task.new(task_params)
-  if @task.save
-    redirect_to tasks_path, notice: 'Tarefa criada com sucesso!'
-  else
-    render :new, status: :unprocessable_entity
+  def new
+    @task = Task.new
   end
-end
 
-def fast_task
-  @task = Task.new(task_params)
-  @task.start_date = Date.today
-  @task.end_date = Date.today
+  def edit; end
 
-  if @task.save
-    redirect_to tasks_path, notice: 'Tarefa criada com sucesso!'
-  else
-    render :new, status: :unprocessable_entity
+  def create
+    @task = Task.new(task_params)
+    if @task.save
+      redirect_to tasks_path, notice: 'Tarefa criada com sucesso!'
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
-end
 
-def update
-  if @task.update(task_params)
-    redirect_to tasks_path, notice: 'Tarefa alterada com sucesso!'
-  else
-    render :edit, status: :unprocessable_entity
+  def fast_task
+    @task = Task.new(task_params)
+    @task.start_date = Date.today
+    @task.end_date = Date.today
+
+    if @task.save
+      redirect_to tasks_path, notice: 'Tarefa criada com sucesso!'
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
-end
 
-def destroy
-  @task.destroy
-  redirect_to tasks_path, notice: 'Tarefa excluída com sucesso!'
-end
+  def update
+    if @task.update(task_params)
+      redirect_to tasks_path, notice: 'Tarefa alterada com sucesso!'
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @task.destroy
+    redirect_to tasks_path, notice: 'Tarefa excluída com sucesso!'
+  end
 
   private
 
-def set_task
-  @task = Task.find(params[:id])
-end
+  def set_task
+    @task = Task.find(params[:id])
+  end
 
-def task_params
-  params.require(:task).permit(:title, :description, :start_date, :end_date, :result, :priority, :status, :typetask,
-                               :finished)
+  def task_params
+    params.require(:task).permit(:title, :description, :start_date, :end_date, :result, :priority, :status, :typetask,
+                                 :finished)
+  end
 end
