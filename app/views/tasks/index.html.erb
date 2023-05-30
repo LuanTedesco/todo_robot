@@ -1,12 +1,10 @@
-<div class="d-sm-flex align-items-center justify-content-between mb-3">
+<div class="d-grid gap-2 mb-3">
   <%= link_to "Novo", new_task_path, "data-controller":"task-modal", class: 'btn btn-primary' %>
 </div>
 <%= form_with model: Task.new, url: fast_task_path, method: :post do |f| %>
   <div class="input-group mb-3">
     <%= f.text_field :title, class: 'form-control', placeholder: 'Descreva' %>
-    <div class="input-group-prepend">
-      <%= f.submit 'Adicionar', class: 'btn btn-primary' %>
-    </div>
+    <%= f.submit 'Adicionar', class: 'btn btn-primary' %>
   </div>
 <% end %>
 <table class="table table-hover">

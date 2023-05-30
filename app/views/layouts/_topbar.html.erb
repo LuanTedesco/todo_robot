@@ -1,7 +1,7 @@
 <nav class="navbar navbar-light bg-white topbar mb-4 static-top shadow">
-  <div class="d-flex flex-column navbar-nav ml-auto">
+  <ul class="navbar-nav">
     <%= form_tag tasks_path, class: 'd-sm-flex', method: :get do %>
-      <div class="ml-2">
+      <div class="ml-3">
         <%= text_field_tag :filter_title, params[:filter_title], class: 'form-control', placeholder: 'Titulo' %>
       </div>
       <div class="ml-2">
@@ -21,10 +21,12 @@
       </div>
       <%= submit_tag 'Filtrar', class: 'btn btn-primary' %>
     <% end %>
+  </ul>
+  <div class="ml-auto">
+    <ul class="navbar-nav">
+      <div class="form-control border-0 small">
+        <p style="color: green"><%= notice %></p>
+      </div>
+    </ul>
   </div>
-  <!--  <ul class="navbar-nav ml-auto">
-    <div class="form-control border-0 small">
-      <p style="color: green"><%#= notice %></p>
-    </div>
-  </ul>-->
 </nav>
