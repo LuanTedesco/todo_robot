@@ -1,7 +1,7 @@
 <%= form_for(@task) do |f| %>
   <% if f.object.errors.any? %>
     <div class="alert alert-danger">
-      <strong>Error:</strong> <%= pluralize(f.object.errors.count, "error") %> prohibited this task from being saved.
+      <strong>Error:</strong> <%= pluralize(f.object.errors.count, "error") %>
     </div>
   <% end %>
   <div class="form-group">

@@ -8,7 +8,7 @@
   <hr class="sidebar-divider my-0">
   <li class="nav-item active">
     <%= link_to tasks_path, class: "nav-link" do %>
-      <i class="fas fa-check"></i>
+      <i class="fas fa-chart-line"></i>
       <span>Dashboard</span>
     <% end %>
   </li>
@@ -16,7 +16,7 @@
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
         aria-expanded="true" aria-controls="collapseTwo">
-      <i class="fas fa-fw fa-cog"></i>
+      <i class="fas fa-user-check"></i>
       <span>Tarefas</span>
     </a>
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
@@ -38,7 +38,7 @@
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
                     aria-expanded="true" aria-controls="collapsePages">
-        <i class="fas fa-fw fa-folder"></i>
+        <i class="fas fa-sun"></i>
         <span>Robôs Diários</span>
       </a>
       <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
@@ -61,13 +61,13 @@
     <li class="nav-item">
       <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
                     aria-expanded="true" aria-controls="collapseUtilities">
-        <i class="fas fa-fw fa-folder"></i>
+        <i class="fas fa-industry"></i>
         <span>Fábrica de Robôs</span>
       </a>
       <div id="collapseUtilities" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
         <div class="bg-white py-2 collapse-inner rounded">
           <%= link_to tasks_path(filter: "aguardando"), class: "collapse-item" do %>
-            <i class="fas fa-check"></i>
+            <i class="fas fa-bars"></i>
             <span>Aguardando</span>
           <% end %>
           <%= link_to tasks_path(filter: "desenvolvendo"), class: "collapse-item" do %>
@@ -75,15 +75,15 @@
             <span>Desenvolvendo</span>
           <% end %>
           <%= link_to tasks_path(filter: "testando"), class: "collapse-item" do %>
-            <i class="fas fa-hourglass-end"></i>
+            <i class="fas fa-bars"></i>
             <span>Testando</span>
           <% end %>
           <%= link_to tasks_path(filter: "concluido"), class: "collapse-item" do %>
-            <i class="fas fa-hourglass-end"></i>
+            <i class="fas fa-bars"></i>
             <span>Concluido</span>
           <% end %>
           <%= link_to tasks_path(filter: "rodando"), class: "collapse-item" do %>
-            <i class="fas fa-hourglass-end"></i>
+            <i class="fas fa-bars"></i>
             <span>Rodando</span>
           <% end %>
         </div>
