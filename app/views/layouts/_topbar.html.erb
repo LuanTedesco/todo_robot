@@ -1,27 +1,30 @@
-<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-  <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
-    <i class="fa fa-bars"></i>
-  </button>
-  <ul class="navbar-nav ml-auto">
-    <li class="nav-item dropdown no-arrow d-sm-none">
-      <a class="nav-link dropdown-toggle" href="#" id="searchDropdown" role="button"data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        <i class="fas fa-search fa-fw"></i>
-      </a>
-      <div class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in"
-        aria-labelledby="searchDropdown">
-        <form class="form-inline mr-auto w-100 navbar-search">
-          <div class="input-group">
-            <input type="text" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search"
-            aria-describedby="basic-addon2">
-            <div class="input-group-append">
-              <button class="btn btn-primary" type="button">
-                <i class="fas fa-search fa-sm"></i>
-              </button>
-            </div>
-          </div>
-        </form>
+<nav class="navbar navbar-light bg-white topbar mb-4 static-top shadow">
+  <div class="d-flex flex-column navbar-nav ml-auto">
+    <%= form_tag tasks_path, class: 'd-sm-flex', method: :get do %>
+      <div class="ml-2">
+        <%= text_field_tag :filter_title, params[:filter_title], class: 'form-control', placeholder: 'Titulo' %>
       </div>
-    </li>
-    <p style="color: green"><%= notice %></p>
-  </ul>
+      <div class="ml-2">
+        <%= text_field_tag :filter_start_date, params[:filter_start_date], class: 'form-control', placeholder: 'Data de inicio' %>
+      </div>
+      <div class="ml-2">
+        <%= text_field_tag :filter_end_date, params[:filter_end_date], class: 'form-control', placeholder: 'Data de termino' %>
+      </div>
+      <div class="ml-2">
+        <%= select_tag :filter_priority, options_for_select(Task.priorities.map { |key, value| [value.humanize, key] }, params[:filter_priority]), include_blank: 'Prioridade', class: 'form-control' %>
+      </div>
+      <div class="ml-2">
+        <%= select_tag :filter_status, options_for_select(Task.statuses.map { |key, value| [value.humanize, key] }, params[:filter_status]), include_blank: 'Status', class: 'form-control' %>
+      </div>
+      <div class="ml-2 mr-2">
+        <%= select_tag :filter_typetask, options_for_select(Task.typetasks.map { |key, value| [value.humanize, key] }, params[:filter_typetask]), include_blank: 'Tipo', class: 'form-control' %>
+      </div>
+      <%= submit_tag 'Filtrar', class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+  <!--  <ul class="navbar-nav ml-auto">
+    <div class="form-control border-0 small">
+      <p style="color: green"><%#= notice %></p>
+    </div>
+  </ul>-->
 </nav>
