@@ -58,7 +58,9 @@ class TasksController < ApplicationController
   def create
     @task = Task.new(task_params)
     if @task.save
-      redirect_to tasks_path, notice: 'Tarefa criada com sucesso!'
+      type_task
+      redirect_to tasks_path, notice: "#{@type_task} criad#{@sex} com sucesso!"
+      flash[:success] = notice
     else
       render :new, status: :unprocessable_entity
     end
@@ -70,15 +72,20 @@ class TasksController < ApplicationController
     @task.end_date = Date.today
 
     if @task.save
-      redirect_to tasks_path, notice: 'Tarefa criada com sucesso!'
+      type_task
+      redirect_to tasks_path, notice: "#{@type_task} criad#{@sex} com sucesso!"
+      flash[:success] = notice
     else
-      render :new, status: :unprocessable_entity
+      redirect_to tasks_path, notice: 'Título não preenchido'
+      flash[:error] = notice
     end
   end
 
   def update
     if @task.update(task_params)
-      redirect_to tasks_path, notice: 'Tarefa alterada com sucesso!'
+      type_task
+      redirect_to tasks_path, notice: "#{@type_task} alterad#{@sex} com sucesso!"
+      flash[:success] = notice
     else
       render :edit, status: :unprocessable_entity
     end
@@ -86,10 +93,22 @@ class TasksController < ApplicationController
 
   def destroy
     @task.destroy
-    redirect_to tasks_path, notice: 'Tarefa excluída com sucesso!'
+    type_task
+    redirect_to tasks_path, notice: "#{@type_task} excluíd#{@sex} com sucesso!"
+    flash[:success] = notice
   end
 
   private
+
+  def type_task
+    if @task.typetask == 'Robô'
+      @type_task = 'Robô'
+      @sex = 'o'
+    else
+      @type_task = 'Tarefa'
+      @sex = 'a'
+    end
+  end
 
   def set_task
     @task = Task.find(params[:id])
