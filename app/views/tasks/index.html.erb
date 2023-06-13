@@ -3,7 +3,7 @@
 </div>
 <%= form_with model: Task.new, url: fast_task_path, method: :post do |f| %>
   <div class="input-group mb-3">
-    <%= f.text_field :title, class: 'form-control', placeholder: 'Descreva' %>
+    <%= f.text_field :title, class: 'form-control', placeholder: 'Insira o texto' %>
     <%= f.submit 'Adicionar', class: 'btn btn-primary' %>
   </div>
 <% end %>
