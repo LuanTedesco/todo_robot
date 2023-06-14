@@ -7,6 +7,73 @@ class TasksController < ApplicationController
     order_tasks
   end
 
+  def show; end
+
+  def new
+    @task = Task.new
+  end
+
+  def edit; end
+
+  def create
+    @task = Task.new(task_params)
+    if @task.save
+      set_type_task
+      redirect_to request.referrer || root_path
+      flash[:success] = "#{@type_task} criad#{@sex} com sucesso!"
+    else
+      render :new, status: :unprocessable_entity
+    end
+  end
+
+  def fast_task
+    @task = Task.new(task_params)
+    @task.start_date = Date.today
+    @task.end_date = Date.today
+
+    if @task.save
+      set_type_task
+      redirect_to request.referrer || root_path
+      flash[:success] = "#{@type_task} criad#{@sex} com sucesso!"
+    else
+      redirect_to request.referrer || root_path
+      flash[:error] = 'Título não preenchido'
+    end
+  end
+
+  def update
+    if @task.update(task_params)
+      set_type_task
+      redirect_to request.referrer || root_path
+      flash[:success] = "#{@type_task} alterad#{@sex} com sucesso!"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @task.destroy
+    set_type_task
+    redirect_to request.referrer || root_path
+    flash[:success] = "#{@type_task} apagad#{@sex} com sucesso!"
+  end
+
+  private
+
+  def set_type_task
+    if @task.typetask == 'Robô'
+      @type_task = 'Robô'
+      @sex = 'o'
+    else
+      @type_task = 'Tarefa'
+      @sex = 'a'
+    end
+  end
+
+  def set_task
+    @task = Task.find(params[:id])
+  end
+
   def filter_tasks
     @tasks = Task.all
   end
@@ -40,73 +107,6 @@ class TasksController < ApplicationController
     @tasks = @tasks.where(status: params[:filter_status]) if params[:filter_status].present?
     @tasks = @tasks.where(typetask: params[:filter_typetask]) if params[:filter_typetask].present?
     @tasks = @tasks.order(priority: :desc, finished: :desc)
-  end
-
-  def show; end
-
-  def new
-    @task = Task.new
-  end
-
-  def edit; end
-
-  def create
-    @task = Task.new(task_params)
-    if @task.save
-      set_type_task
-      redirect_to tasks_path, notice: "#{@type_task} criad#{@sex} com sucesso!"
-      flash[:success] = notice
-    else
-      render :new, status: :unprocessable_entity
-    end
-  end
-
-  def fast_task
-    @task = Task.new(task_params)
-    @task.start_date = Date.today
-    @task.end_date = Date.today
-
-    if @task.save
-      set_type_task
-      redirect_to tasks_path, notice: "#{@type_task} criad#{@sex} com sucesso!"
-      flash[:success] = notice
-    else
-      redirect_to tasks_path, notice: 'Título não preenchido'
-      flash[:error] = notice
-    end
-  end
-
-  def update
-    if @task.update(task_params)
-      set_type_task
-      redirect_to tasks_path, notice: "#{@type_task} alterad#{@sex} com sucesso!"
-      flash[:success] = notice
-    else
-      render :edit, status: :unprocessable_entity
-    end
-  end
-
-  def destroy
-    @task.destroy
-    set_type_task
-    redirect_to tasks_path, notice: "#{@type_task} apagad#{@sex} com sucesso!"
-    flash[:success] = notice
-  end
-
-  private
-
-  def set_type_task
-    if @task.typetask == 'Robô'
-      @type_task = 'Robô'
-      @sex = 'o'
-    else
-      @type_task = 'Tarefa'
-      @sex = 'a'
-    end
-  end
-
-  def set_task
-    @task = Task.find(params[:id])
   end
 
   def task_params

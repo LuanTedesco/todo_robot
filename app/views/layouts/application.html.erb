@@ -29,18 +29,6 @@
     <a class="scroll-to-top rounded" href="#page-top">
       <i class="fas fa-angle-up"></i>
     </a>
-    <% if flash[:success] %>
-      <script>
-        toastr.success("<%= notice %>");
-      </script>
-    <% elsif flash[:info] %>
-      <script>
-        toastr.info("<%= notice %>");
-      </script>
-    <% elsif flash[:error] %>
-      <script>
-        toastr.error("<%= notice %>");
-      </script>
-    <% end %>
+    <%=render 'layouts/toastr' %>
   </body>
 </html>
