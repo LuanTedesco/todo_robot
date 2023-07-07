@@ -1,0 +1,18 @@
+<div class="login-body">
+  <div class="container">
+    <div class="login-container">
+      <h2>Resend login Instructions</h2>
+      <%= form_for(resource, as: resource_name, url: login_path(resource_name), html: { method: :post }) do |f| %>
+        <%= render "devise/shared/error_messages", resource: resource %>
+        <div class="login-form-group">
+          <%= f.label :email %><br />
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", value: (resource.pending_relogin? ? resource.unconfirmed_email : resource.email), class: "form-control" %>
+        </div>
+        <div class="login-actions text-center">
+          <%= f.submit "Resend login Instructions", class: "btn btn-primary btn-block login-btn-resend" %>
+        </div>
+      <% end %>
+      <%= render "devise/shared/links" %>
+    </div>
+  </div>
+</div>

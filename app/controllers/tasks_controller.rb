@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+  layout 'application_tasks'
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
@@ -16,7 +17,7 @@ class TasksController < ApplicationController
   def edit; end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       set_type_task
       redirect_to request.referrer || root_path
@@ -27,7 +28,7 @@ class TasksController < ApplicationController
   end
 
   def fast_task
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     @task.start_date = Date.today
     @task.end_date = Date.today
 
@@ -75,10 +76,11 @@ class TasksController < ApplicationController
   end
 
   def filter_tasks
-    @tasks = Task.all
+    @tasks = current_user.tasks
   end
 
   def apply_filters
+    @tasks = current_user.tasks
     case params[:filter]
     when 'today_tasks'
       @tasks = @tasks.today.today_ended.task
