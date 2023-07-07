@@ -13,6 +13,12 @@
     <% end %>
   </li>
   <hr class="sidebar-divider my-0">
+  <li class="nav-item active">
+    <%= link_to tasks_path, class: "nav-link" do %>
+      <i class="fas fa-globe"></i>
+      <span>Todas</span>
+    <% end %>
+  </li>
   <li class="nav-item">
     <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
         aria-expanded="true" aria-controls="collapseTwo">
@@ -27,7 +33,7 @@
         <% end %>
         <%= link_to tasks_path(filter: "tasks"), class: "collapse-item" do %>
           <i class="fas fa-bars"></i>
-          <span>Tarefas</span>
+          <span>Todas</span>
         <% end %>
         <%= link_to tasks_path(filter: "ended_tasks"), class: "collapse-item" do %>
           <i class="fas fa-hourglass-end"></i>
@@ -49,7 +55,7 @@
           <% end %>
           <%= link_to tasks_path(filter: "robots"), class: "collapse-item" do %>
             <i class="fas fa-bars"></i>
-            <span>Tarefas</span>
+            <span>Todas</span>
           <% end %>
           <%= link_to tasks_path(filter: "ended_robots"), class: "collapse-item" do %>
             <i class="fas fa-hourglass-end"></i>

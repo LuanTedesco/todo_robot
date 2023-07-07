@@ -1,12 +1,35 @@
-<div class="d-grid gap-2 mb-3">
-  <%= link_to "Novo", new_task_path, "data-controller":"task-modal", class: 'btn btn-primary' %>
+<div class="mb-3">
+  <%= form_tag tasks_path, class: 'd-sm-flex', method: :get do %>
+    <div class="flex-fill">
+      <%= text_field_tag :filter_title, params[:filter_title], class: 'form-control', placeholder: 'Titulo' %>
+    </div>
+    <div class="flex-fill ml-2">
+      <%= text_field_tag :filter_start_date, params[:filter_start_date], class: 'form-control', placeholder: 'Data de inicio' %>
+    </div>
+    <div class="flex-fill ml-2">
+      <%= text_field_tag :filter_end_date, params[:filter_end_date], class: 'form-control', placeholder: 'Data de termino' %>
+    </div>
+    <div class="flex-fill ml-2">
+      <%= select_tag :filter_priority, options_for_select(Task.priorities.map { |key, value| [value.humanize, key] }, params[:filter_priority]), include_blank: 'Prioridade', class: 'form-control' %>
+    </div>
+    <div class="flex-fill ml-2">
+      <%= select_tag :filter_status, options_for_select(Task.statuses.map { |key, value| [value.humanize, key] }, params[:filter_status]), include_blank: 'Status', class: 'form-control' %>
+    </div>
+    <div class="flex-fill ml-2 mr-2">
+      <%= select_tag :filter_typetask, options_for_select(Task.typetasks.map { |key, value| [value.humanize, key] }, params[:filter_typetask]), include_blank: 'Tipo', class: 'form-control' %>
+    </div>
+    <%= submit_tag 'Filtrar', class: 'btn btn-primary' %>
+  <% end %>
 </div>
-<%= form_with model: Task.new, url: fast_task_path, method: :post do |f| %>
-  <div class="input-group mb-3">
-    <%= f.text_field :title, class: 'form-control', placeholder: 'Insira o texto' %>
-    <%= f.submit 'Adicionar', class: 'btn btn-primary' %>
-  </div>
-<% end %>
+<div class="d-flex justify-content-between mb-3">
+  <%= link_to "Novo", new_task_path, "data-controller":"task-modal", class: 'btn btn-primary flex-fill mr-2' %>
+  <%= form_with model: Task.new, url: fast_task_path, method: :post, class: 'd-flex flex-fill' do |f| %>
+    <div class="input-group">
+      <%= f.text_field :title, class: 'form-control', placeholder: 'Insira o texto' %>
+      <%= f.submit 'Adicionar', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
 <table class="table table-hover">
   <thead>
     <th></th>
