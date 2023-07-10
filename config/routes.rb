@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
+  resources :tags
   resources :tasks
   root to: redirect('/tasks')
 

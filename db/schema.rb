@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_05_180327) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_10_172310) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -19,6 +19,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_180327) do
   create_enum "priority", ["Baixa prioridade", "Moderado", "Importante", "Urgente"]
   create_enum "status", ["Aguardando", "Desenvolvendo", "Testando", "Concluído", "Rodando"]
   create_enum "typetask", ["Robô", "Tarefa"]
+
+  create_table "priorities", force: :cascade do |t|
+    t.string "name"
+    t.integer "position"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_tags_on_user_id"
+  end
 
   create_table "tasks", force: :cascade do |t|
     t.string "title"
@@ -48,5 +63,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_05_180327) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "tags", "users"
   add_foreign_key "tasks", "users"
 end
