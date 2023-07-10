@@ -10,6 +10,7 @@ class Task < ApplicationRecord
   scope :concluido, -> { where(status: 'Concluído') }
   scope :rodando, -> { where(status: 'Rodando') }
   validates :title, presence: true
+  belongs_to :user
 
   enum priority: {
     'Baixa prioridade' => 'Baixa prioridade',
