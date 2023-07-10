@@ -3,60 +3,84 @@ class TasksController < ApplicationController
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    filter_tasks
-    apply_filters
-    order_tasks
+    if user_signed_in?
+      filter_tasks
+      apply_filters
+      order_tasks
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   def show; end
 
   def new
-    @task = Task.new
+    if user_signed_in?
+      @task = Task.new
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   def edit; end
 
   def create
-    @task = current_user.tasks.build(task_params)
-    if @task.save
-      set_type_task
-      redirect_to request.referrer || root_path
-      flash[:success] = "#{@type_task} criad#{@sex} com sucesso!"
+    if user_signed_in?
+      @task = current_user.tasks.build(task_params)
+      if @task.save
+        set_type_task
+        redirect_to request.referrer || root_path
+        flash[:success] = "#{@type_task} criad#{@sex} com sucesso!"
+      else
+        render :new, status: :unprocessable_entity
+      end
     else
-      render :new, status: :unprocessable_entity
+      redirect_to new_user_session_path
     end
   end
 
   def fast_task
-    @task = current_user.tasks.build(task_params)
-    @task.start_date = Date.today
-    @task.end_date = Date.today
+    if user_signed_in?
+      @task = current_user.tasks.build(task_params)
+      @task.start_date = Date.today
+      @task.end_date = Date.today
 
-    if @task.save
-      set_type_task
-      redirect_to request.referrer || root_path
-      flash[:success] = "#{@type_task} criad#{@sex} com sucesso!"
+      if @task.save
+        set_type_task
+        redirect_to request.referrer || root_path
+        flash[:success] = "#{@type_task} criad#{@sex} com sucesso!"
+      else
+        redirect_to request.referrer || root_path
+        flash[:error] = 'Título não preenchido'
+      end
     else
-      redirect_to request.referrer || root_path
-      flash[:error] = 'Título não preenchido'
+      redirect_to new_user_session_path
     end
   end
 
   def update
-    if @task.update(task_params)
-      set_type_task
-      redirect_to request.referrer || root_path
-      flash[:success] = "#{@type_task} alterad#{@sex} com sucesso!"
+    if user_signed_in?
+      if @task.update(task_params)
+        set_type_task
+        redirect_to request.referrer || root_path
+        flash[:success] = "#{@type_task} alterad#{@sex} com sucesso!"
+      else
+        render :edit, status: :unprocessable_entity
+      end
     else
-      render :edit, status: :unprocessable_entity
+      redirect_to new_user_session_path
     end
   end
 
   def destroy
-    @task.destroy
-    set_type_task
-    redirect_to request.referrer || root_path
-    flash[:success] = "#{@type_task} apagad#{@sex} com sucesso!"
+    if user_signed_in?
+      @task.destroy
+      set_type_task
+      redirect_to request.referrer || root_path
+      flash[:success] = "#{@type_task} apagad#{@sex} com sucesso!"
+    else
+      redirect_to new_user_session_path
+    end
   end
 
   private
