@@ -22,7 +22,7 @@
   <% end %>
 </div>
 <div class="d-flex justify-content-between mb-3">
-  <%= link_to "Novo", new_task_path, "data-controller":"task-modal", class: 'btn btn-primary flex-fill mr-2' %>
+  <%= link_to "Novo", new_task_path, "data-controller":"generic-modal", class: 'btn btn-primary flex-fill mr-2' %>
   <%= form_with model: Task.new, url: fast_task_path, method: :post, class: 'd-flex flex-fill' do |f| %>
     <div class="input-group">
       <%= f.text_field :title, class: 'form-control', placeholder: 'Insira o texto' %>
@@ -58,7 +58,7 @@
         <td><%= task.status %></td>
         <td><%= task.typetask %></td>
         <td class="text-right">
-          <%= link_to "Editar", edit_task_path(task), "data-controller":"task-modal", class: 'btn btn-primary' %>
+          <%= link_to "Editar", edit_task_path(task), "data-controller":"generic-modal", class: 'btn btn-primary' %>
           <%= link_to "Excluir", task_path(task), method: :delete, class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Deseja realmente excluir?' } %>
         </td>
       </tr>

@@ -1,9 +1,9 @@
 import { Controller } from '@hotwired/stimulus'
 
-// Connects to data-controller="task-modal"
+// Connects to data-controller="generic-modal"
 export default class extends Controller {
   connect() {
-    this.element.setAttribute('data-action', 'task-modal#click_modal')
+    this.element.setAttribute('data-action', 'generic-modal#click_modal')
   }
 
   click_modal(e) {
