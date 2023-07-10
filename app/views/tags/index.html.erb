@@ -1,5 +1,5 @@
 <div class="d-flex justify-content-between mb-3">
-  <%= link_to "Novo", new_tag_path, "data-controller":"task-modal", class: 'btn btn-primary flex-fill mr-2' %>
+  <%= link_to "Novo", new_tag_path, "data-controller":"generic-modal", class: 'btn btn-primary flex-fill mr-2' %>
 </div>
 <table class="table table-hover">
   <thead>
@@ -11,7 +11,7 @@
       <tr>
         <td class="text-truncate" style="max-width: 300px;"><%= tag.name %></td>
         <td class="text-right">
-          <%= link_to "Editar", edit_tag_path(tag), "data-controller":"task-modal", class: 'btn btn-primary' %>
+          <%= link_to "Editar", edit_tag_path(tag), "data-controller":"generic-modal", class: 'btn btn-primary' %>
           <%= link_to "Excluir", tag_path(tag), method: :delete, class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Deseja realmente excluir?' } %>
         </td>
       </tr>
