@@ -43,7 +43,22 @@
     </div>
     <div class="form-group col-md-6">
       <%= f.label :tags, class: "control-label" %>
-      <%= f.collection_select :tag_ids, current_user.tags, :id, :name, {}, { multiple: true } %>
+      <div class="dropdown">
+        <button class="btn btn-primary dropdown-toggle" type="button" id="tagDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Selecione as tags
+        </button>
+        <div class="dropdown-menu" aria-labelledby="tagDropdown">
+          <input type="text" id="tagSearch" class="form-control" placeholder="Pesquisar tags">
+          <div class="tag-list">
+            <% current_user.tags.each do |tag| %>
+              <div class="form-check">
+                <%= check_box_tag "task[tag_ids][]", tag.id, @task.tag_ids.include?(tag.id), id: "tag_#{tag.id}", class: "form-check-input" %>
+                <%= label_tag "tag_#{tag.id}", tag.name, class: "form-check-label" %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="form-group">
@@ -56,3 +71,18 @@
     <%= f.submit 'Salvar', class: 'btn btn-primary' %>
   </div>
 <% end %>
+<script>
+  $(function() {
+    $('#tagSearch').on('input', function() {
+      var searchValue = $(this).val().toLowerCase();
+      $('.tag-list .form-check').each(function() {
+        var tagName = $(this).text().toLowerCase();
+        if (tagName.includes(searchValue)) {
+          $(this).show();
+        } else {
+          $(this).hide();
+        }
+      });
+    });
+  });
+</script>
