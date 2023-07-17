@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_07_10_172310) do
+ActiveRecord::Schema[7.0].define(version: 2023_07_17_141534) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -20,19 +20,19 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_10_172310) do
   create_enum "status", ["Aguardando", "Desenvolvendo", "Testando", "Concluído", "Rodando"]
   create_enum "typetask", ["Robô", "Tarefa"]
 
-  create_table "priorities", force: :cascade do |t|
-    t.string "name"
-    t.integer "position"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "tags", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_tags_on_user_id"
+  end
+
+  create_table "tags_tasks", id: false, force: :cascade do |t|
+    t.bigint "tag_id", null: false
+    t.bigint "task_id", null: false
+    t.index ["tag_id", "task_id"], name: "index_tags_tasks_on_tag_id_and_task_id"
+    t.index ["task_id", "tag_id"], name: "index_tags_tasks_on_task_id_and_tag_id"
   end
 
   create_table "tasks", force: :cascade do |t|

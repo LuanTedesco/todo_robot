@@ -39,6 +39,7 @@
     <th>Prioridade</th>
     <th>Status</th>
     <th>Tipo</th>
+    <th>Tags</th>
     <th></th>
   </thead>
   <tbody>
@@ -57,6 +58,7 @@
         <td><%= task.priority %></td>
         <td><%= task.status %></td>
         <td><%= task.typetask %></td>
+        <td><%= task.tags.map(&:name).join(', ') %></td>
         <td class="text-right">
           <%= link_to "Editar", edit_task_path(task), "data-controller":"generic-modal", class: 'btn btn-primary' %>
           <%= link_to "Excluir", task_path(task), method: :delete, class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Deseja realmente excluir?' } %>

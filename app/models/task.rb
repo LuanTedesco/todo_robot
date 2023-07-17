@@ -11,6 +11,7 @@ class Task < ApplicationRecord
   scope :rodando, -> { where(status: 'Rodando') }
   validates :title, presence: true
   belongs_to :user
+  has_and_belongs_to_many :tags
 
   enum priority: {
     'Baixa prioridade' => 'Baixa prioridade',

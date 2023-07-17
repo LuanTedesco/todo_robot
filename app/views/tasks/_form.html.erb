@@ -36,9 +36,15 @@
       <%= f.select :status, options_for_select(Task.statuses.map { |key, value| [value.humanize, key] }, @task.status), {}, class: "form-control", required: true %>
     </div>
   </div>
-  <div class="form-group">
-    <%= f.label :typetask, class: "control-label" %>
-    <%= f.select :typetask, options_for_select(Task.typetasks.map { |key, value| [value.humanize, key] }, @task.typetask), {}, class: "form-control", required: true %>
+  <div class="form-row">
+    <div class="form-group col-md-6">
+      <%= f.label :typetask, class: "control-label" %>
+      <%= f.select :typetask, options_for_select(Task.typetasks.map { |key, value| [value.humanize, key] }, @task.typetask), {}, class: "form-control", required: true %>
+    </div>
+    <div class="form-group col-md-6">
+      <%= f.label :tags, class: "control-label" %>
+      <%= f.collection_select :tag_ids, current_user.tags, :id, :name, {}, { multiple: true } %>
+    </div>
   </div>
   <div class="form-group">
     <div class="form-check">
