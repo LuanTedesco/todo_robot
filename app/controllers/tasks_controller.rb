@@ -22,7 +22,14 @@ class TasksController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    if user_signed_in?
+    @task = Task.find(params[:id])
+    @sub_tasks = current_user.sub_tasks.where(task_id: @task.id)
+    else
+      redirect_to new_user_session_path
+    end
+  end
 
   def create
     if user_signed_in?

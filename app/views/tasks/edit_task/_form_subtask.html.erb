@@ -1,0 +1,28 @@
+<div class="d-flex justify-content-between mb-3 mt-3">
+  <%= form_with model: SubTask.new, url: task_sub_tasks_path(@task), local: true, class: 'd-flex flex-fill' do |f| %>
+    <div class="input-group">
+      <%= f.text_field :title, class: 'form-control', placeholder: 'Insira o texto' %>
+      <%= f.submit 'Adicionar', class: 'btn btn-primary' %>
+    </div>
+  <% end %>
+</div>
+<table class="table table-hover">
+  <tbody>
+    <% @sub_tasks.each do |sub_task| %>
+      <tr>
+        <td>
+          <div class="form-check">
+            <%= form_with(model: sub_task, local: true) do |f| %>
+              <%= f.check_box :finished, class: "checkbox-toggle form-check-input ml-2" %>
+            <% end %>
+          </div>
+        </td>
+        <td><%= sub_task.title %></td>
+        <td class="text-right">
+          <%= link_to "Editar", edit_sub_task_path(sub_task), "data-controller": "generic-modal", class: "btn btn-primary" %>
+          <%= link_to "Excluir", sub_task_path(sub_task), method: :delete, class: "btn btn-danger", data: { turbo_method: :delete, turbo_confirm: "Deseja realmente excluir?" } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
