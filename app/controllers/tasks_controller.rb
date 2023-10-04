@@ -1,38 +1,26 @@
 class TasksController < ApplicationController
   layout 'application_tasks'
+  before_action :authenticate_user!
   before_action :set_task, only: %i[show edit update destroy]
 
   def index
-    if user_signed_in?
       filter_tasks
       apply_filters
       order_tasks
-    else
-      redirect_to new_user_session_path
-    end
   end
 
   def show; end
 
   def new
-    if user_signed_in?
       @task = Task.new
-    else
-      redirect_to new_user_session_path
-    end
   end
 
   def edit
-    if user_signed_in?
     @task = Task.find(params[:id])
     @sub_tasks = current_user.sub_tasks.where(task_id: @task.id)
-    else
-      redirect_to new_user_session_path
-    end
   end
 
   def create
-    if user_signed_in?
       @task = current_user.tasks.build(task_params)
       if @task.save
         set_type_task
@@ -41,13 +29,9 @@ class TasksController < ApplicationController
       else
         render :new, status: :unprocessable_entity
       end
-    else
-      redirect_to new_user_session_path
-    end
   end
 
   def fast_task
-    if user_signed_in?
       @task = current_user.tasks.build(task_params)
       @task.start_date = Date.today
       @task.end_date = Date.today
@@ -60,13 +44,9 @@ class TasksController < ApplicationController
         redirect_to request.referrer || root_path
         flash[:error] = 'Título não preenchido'
       end
-    else
-      redirect_to new_user_session_path
-    end
   end
 
   def update
-    if user_signed_in?
       if @task.update(task_params)
         set_type_task
         redirect_to request.referrer || root_path
@@ -74,20 +54,13 @@ class TasksController < ApplicationController
       else
         render :edit, status: :unprocessable_entity
       end
-    else
-      redirect_to new_user_session_path
-    end
   end
 
   def destroy
-    if user_signed_in?
       @task.destroy
       set_type_task
       redirect_to request.referrer || root_path
       flash[:success] = "#{@type_task} apagad#{@sex} com sucesso!"
-    else
-      redirect_to new_user_session_path
-    end
   end
 
   private
