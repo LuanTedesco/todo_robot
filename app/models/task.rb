@@ -2,35 +2,19 @@ class Task < ApplicationRecord
   scope :today, -> { where('start_date <= ? AND end_date >= ?', Date.today, Date.today) }
   scope :today_ended, -> { where(finished: false) }
   scope :ended, -> { where(finished: true) }
-  scope :task, -> { where(typetask: 'Tarefa') }
-  scope :robot, -> { where(typetask: 'Robô') }
-  scope :aguardando, -> { where(status: 'Aguardando') }
-  scope :desenvolvendo, -> { where(status: 'Desenvolvendo') }
-  scope :testando, -> { where(status: 'Testando') }
-  scope :concluido, -> { where(status: 'Concluído') }
-  scope :rodando, -> { where(status: 'Rodando') }
+  scope :task, -> { where(typetask: :task) }
+  scope :robot, -> { where(typetask: :robot) }
+  scope :waiting, -> { where(status: :waiting) }
+  scope :developing, -> { where(status: :developing) }
+  scope :testing, -> { where(status: :testing) }
+  scope :completed, -> { where(status: :completed) }
+  scope :running, -> { where(status: :running) }
   validates :title, presence: true
   belongs_to :user
   has_and_belongs_to_many :tags
   has_many :sub_tasks
 
-  enum priority: {
-    'Baixa prioridade' => 'Baixa prioridade',
-    'Moderado' => 'Moderado',
-    'Importante' => 'Importante',
-    'Urgente' => 'Urgente'
-  }
-
-  enum status: {
-    'Aguardando' => 'Aguardando',
-    'Desenvolvendo' => 'Desenvolvendo',
-    'Testando' => 'Testando',
-    'Concluído' => 'Concluído',
-    'Rodando' => 'Rodando'
-  }
-
-  enum typetask: {
-    'Robô' => 'Robô',
-    'Tarefa' => 'Tarefa'
-  }
+  enum priority: { low: 'Low', moderate: 'Moderate', important: 'Important', urgent: 'Urgent' }
+  enum status: { waiting: 'Waiting', developing: 'Developing', testing: 'Testing', completed: 'Completed', running: 'Running' }
+  enum typetask: { robot: 'Robot', task: 'Task' }
 end

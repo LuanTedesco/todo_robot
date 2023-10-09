@@ -1,9 +1,9 @@
 <div class="d-flex justify-content-between mb-3">
-  <%= link_to "Novo", new_tag_path, "data-controller":"generic-modal", class: 'btn btn-primary flex-fill mr-2' %>
+  <%= link_to "New Tag", new_tag_path, "data-controller":"generic-modal", class: 'btn btn-primary flex-fill mr-2' %>
 </div>
 <table class="table table-hover">
   <thead>
-    <th>Nome</th>
+    <th>Name</th>
     <th></th>
   </thead>
   <tbody>
@@ -11,8 +11,8 @@
       <tr>
         <td class="text-truncate" style="max-width: 300px;"><%= tag.name %></td>
         <td class="text-right">
-          <%= link_to "Editar", edit_tag_path(tag), "data-controller":"generic-modal", class: 'btn btn-primary' %>
-          <%= link_to "Excluir", tag_path(tag), method: :delete, class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Deseja realmente excluir?' } %>
+          <%= link_to "Edit", edit_tag_path(tag), "data-controller":"generic-modal", class: 'btn btn-primary' %>
+          <%= link_to "Delete", tag_path(tag), method: :delete, class: 'btn btn-danger', data: { turbo_method: :delete, turbo_confirm: 'Deseja realmente excluir?' } %>
         </td>
       </tr>
     <% end %>

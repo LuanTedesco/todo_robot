@@ -14,12 +14,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_181057) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  # Custom types defined in this database.
-  # Note that some types may not work with other database engines. Be careful if changing database.
-  create_enum "priority", ["Baixa prioridade", "Moderado", "Importante", "Urgente"]
-  create_enum "status", ["Aguardando", "Desenvolvendo", "Testando", "Concluído", "Rodando"]
-  create_enum "typetask", ["Robô", "Tarefa"]
-
   create_table "sub_tasks", force: :cascade do |t|
     t.string "title"
     t.boolean "finished"
@@ -55,9 +49,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_07_17_181057) do
     t.boolean "finished"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.enum "priority", default: "Baixa prioridade", null: false, enum_type: "priority"
-    t.enum "status", default: "Aguardando", null: false, enum_type: "status"
-    t.enum "typetask", default: "Tarefa", null: false, enum_type: "typetask"
+    t.string "priority", default: "low", null: false
+    t.string "status", default: "waiting", null: false
+    t.string "typetask", default: "task", null: false
     t.bigint "user_id", null: false
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end

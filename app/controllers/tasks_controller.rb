@@ -98,7 +98,7 @@ class TasksController < ApplicationController
       @tasks = @tasks.ended.robot
     when 'robots'
       @tasks = @tasks.robot
-    when 'aguardando', 'desenvolvendo', 'testando', 'concluido', 'rodando'
+    when 'waiting', 'developing', 'testing', 'completed', 'runing'
       @tasks = @tasks.send(params[:filter])
     end
   end
